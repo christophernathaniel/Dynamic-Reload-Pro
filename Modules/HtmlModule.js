@@ -1,4 +1,4 @@
-import { PageFlow, HTMLflow, uuid } from '../src/PageFlow.js';
+import { PageFlow, HTMLflow, uuid, DatasetHandler } from '../src/PageFlow.js';
 
 
 // HTML Rendered Moduke
@@ -11,7 +11,9 @@ const HtmlModule = ({ val, parent }) => {
    };
 
    // Include PageFlow Dependancies
-   const [_, variables] = new PageFlow(parent, { ...localState}, false); // Initialise Component
+   const [_, variables] = new PageFlow(parent, { ...localState}); // Initialise Component
+   // Initialise the Dataset Example:  <dataset data-set="object"><data data-collection="varname"  data-value="vardata" /></dataset>
+   const dataset = new DatasetHandler(document.querySelector('dataset')).parseData();
 
    // Typical Functions
    const functions = {

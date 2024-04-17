@@ -1,4 +1,4 @@
-import { PageFlow, HTMLflow, DynamicPage, uuid } from '../src/PageFlow.js';
+import { PageFlow, uuid, DatasetHandler } from '../src/PageFlow.js';
 
 
 // This is a Standard Module
@@ -11,7 +11,11 @@ const ClassModule = ({ val, parent }) => {
     };
     
     // Dependancies
-    const [_, variables] = new PageFlow(parent, { ...localState}, false); // Initialise Component
+    const [_, variables] = new PageFlow(parent, { ...localState}); // Initialise Component (parent element, variables, )
+    // Initialise the Dataset Example:  <dataset data-set="object"><data data-collection="varname"  data-value="vardata" /></dataset>
+    const dataset = new DatasetHandler(document.querySelector('dataset'));
+    let myVariable = dataset.getVar('variable-name2123', 'new Valuuuu'); // get variable from dataset, if not create new value;
+
 
     // Typical Functions
     const functions = {

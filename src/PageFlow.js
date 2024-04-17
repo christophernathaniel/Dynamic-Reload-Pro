@@ -2,7 +2,7 @@
 
 // Linear DOM
 class PageFlow {
-    constructor(page, { ...variables }, retainValue = false) {
+    constructor(page, { ...variables }) {
         this._pageFlow = []; // Pages
         this._elemFlow = []; // Elements
         this._elemFlowRef = []; // Elements Reference
@@ -592,6 +592,44 @@ class DynamicPage {
 
 }
 
+// This is how to use DatasetHandler
+// const datasetHandler = new DatasetHandler(document.querySelector('dataset'));
+// const dataset = datasetHandler.parseData();
+
+class DatasetHandler {
+    constructor(datasetElement) {
+        this.datasetElement = datasetElement;
+        this.dataMap = this.parseData();
+    }
+
+    parseData() {
+        const { datasetElement } = this;
+        
+        if (!datasetElement || !datasetElement.dataset.set) return null;
+
+        const { set: datasetName } = datasetElement.dataset;
+        const dataElements = Array.from(datasetElement.querySelectorAll('data'));
+
+        if (!dataElements.length) return null;
+
+        const dataObject = dataElements.reduce((acc, dataElement) => {
+            const { collection: variableName, value } = dataElement.dataset;
+            acc[variableName] = value;
+            return acc;
+        }, {});
+
+        return new Map([[datasetName, dataObject]]);
+    }
+
+    getVar(variableName, defaultValue) {
+        if (!this.dataMap) return defaultValue;
+
+        const datasetObject = this.dataMap.get(this.datasetElement.dataset.set);
+        if (!datasetObject) return defaultValue;
+
+        return datasetObject[variableName] !== undefined ? datasetObject[variableName] : defaultValue;
+    }
+}
 
 
 const uuid = () => ([1e3]+-1e2+-4e2+-8e2+-1e12).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
@@ -604,5 +642,6 @@ module.exports = {
     PageFlow,
     HTMLflow,
     DynamicPage,
-    uuid
+    uuid,
+    DatasetHandler
 }
