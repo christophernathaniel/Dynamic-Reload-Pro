@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PageFlow</title>
+    <!-- Importing CSS -->
+    <link rel="stylesheet" type="text/css" href="dist/PageFlow.css">
+    <link rel="stylesheet" type="text/css" href="dist/App.css">
+</head>
+<body>
+ 
+    <App>
+        <DynamicPage>
+            <div>
+                <a href="/">First Link</a>
+                <a href="/second.html">Second Link</a>
+                <a href="/third.html">Third Link</a>
+            </div>
+            Index Page
+            <div class="myParent"></div>
+            <div class="myParent2">
+                    <a html class="is-counter" @ref="11" @update="44" @trigger="click" callback="testCallback" defaultcallback="defaultCallback">{{ switchName }}</a>
+                
+                    <label class="label">
+                        <input html @ref="12" @update="11" @trigger="input" callback="testCallback"  postcallback="testCallback" defaultcallback="defaultCallback" @parent=".label" value="" placeholder="test" />
+                        <button html @ref="44" @update="12,11" @trigger="click" @parent=".label" postcallback="clearCallback" defaultcallback="defaultCallback">{{ switchName }}</button>
+                    </label>
+            
+            </div>
+        </DynamicPage>
+    </App>
+
+    <App2>
+        <DynamicPage>
+            <div class="myParent"></div>
+            <div class="myParent2"></div>
+        </DynamicPage>
+    </App2>
+
+
+    
+
+    <!-- Importing JavaScript -->
+    <script src="dist/App.js"></script>
+</body>
+</html>

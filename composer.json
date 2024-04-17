@@ -1,0 +1,32 @@
+{
+    "name": "swift-swap",
+    "description": "PageFlow",
+    "type": "javascript-library",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "email": "christophernathaniel@outlook.com",
+            "name": "Christopher Nathaniel"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    },
+    "autoload": {ls
+        "psr-4": {
+            "App\\": "App"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "platform-check": false
+        }
+    }
+}
