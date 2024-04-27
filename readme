@@ -1,32 +1,29 @@
-## Example Setup:
+# Swift Swap - JavaScript Dynamic Reload Library by ChristopherNathaniel 
+(christophernathaniel.co.uk / creativenebula.co.uk)
+
+
+## Typical App.js / Index.js file
 
 import './App.scss';
 
 import { DynamicPage } from 'swift-swap/src/PageFlow.js';
 import EventListenerManager from './js/libraries/EventListenerManager';
-import organism00 from './modules/_organisms/organism-00/organism-00';
-import Header from './modules/_molecules/header';
-import CookieGuardian from 'cookie-guardian/src/cookie-guardian.js';
-import ViewportObserver from './js/libraries/ViewportObserver';
-import wrapWordsInSpans from './js/libraries/wrapWordsInSpans';
-
-const eventManagerListener = new EventListenerManager();
+const eventManagerListener = new EventListenerManager(); // Replace with EventListener if Library is not  used
 const state = {}
-const cookieGuardian = new CookieGuardian({});    
+
 
  
 document.querySelector('.theme-toggle').addEventListener('click', () => document.body.classList.toggle('dark-theme'));
-    // if(event.target.href.includes(window.location.origin) && !event.target.href.includes('#')) {
 // Components to Render on each page load. Add RenderComponent functions to the Module Classes here.
 // Each time the page is loaded these functions are called
 let renderList = [() => {
     eventManagerListener.removeAll();
 
+    // Example make all A Links Dynamic (No Reload). This behaviour is customisable
     document.querySelectorAll('a').forEach(link => {
         eventManagerListener.add(link, 'click', (event) => {
             if(event.target.href.includes(window.location.origin) 
-                && !event.target.href.includes('#')
-                && event.target.href.includes(window.location.origin + '/enquire/')) {
+                && !event.target.href.includes('#')) {
                 event.preventDefault();
 
                 document.body.classList.add('page-transition');
@@ -41,22 +38,9 @@ let renderList = [() => {
             }
         });
     });  
-
-    
 }];
 
-
-// renderList = [...renderList, HtmlModule({  val: state, parent: '.myParent2' }).RenderComponent]; // Works
-renderList = [...renderList, organism00({ val: state, parent: '.organism-00 .function' }).RenderComponent];
-renderList = [...renderList, Header({ val: state, parent: 'header'}).RenderComponent];
-renderList = [...renderList, () => wrapWordsInSpans('.page-intro-block-02 .is-title, .content-small-10 .is-title') ];
-renderList = [...renderList, () => {
-    const insideCallback = (elem) => elem.classList.add('in-viewport');
-    const outsideCallback = (elem) => elem.classList.remove('in-viewport');
-    new ViewportObserver('.content-half-03, .page-intro-block-02, .content-small-10', {}, insideCallback, outsideCallback);
-}];
-renderList = [...renderList, () => new contactGuardian({})]; // Contact Guardian
-
+renderList = [...renderList, moduleName({ val: state, parent: '.organism-00 .function' }).RenderComponent]; // Rendering a Module
 
 // Define DynamicPage // Source = The HTML element to grab (OuterHTML) // target = The Placement
 // DynamicPage needs to load after any specified data - should technically be the last Function loaded
